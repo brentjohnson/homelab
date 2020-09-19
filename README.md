@@ -91,8 +91,8 @@ sudo apt install nfs-common -y
 # Kubernetes config
  Find config in /etc/rancher/k3s/k3s.yaml
 	It’s readable by root only.
-	To use remotely, save in ~/.kube/k3s.yaml and edit the host/IP address
-    export KUBECONFIG=~/.kube/k3s.yaml
+	To use remotely, save in \~/.kube/k3s.yaml and edit the host/IP address
+    export KUBECONFIG=\~/.kube/k3s.yaml
 
 
 ## Persistent volumes via NFS
