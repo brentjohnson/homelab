@@ -97,14 +97,12 @@ sudo apt install nfs-common -y
 
 ## Persistent volumes via NFS
 
-### Install provisioner
 ```bash
+# Install provisioner
 helm install --set nfs.server=192.168.0.200 --set nfs.path=/srv/k3s-storage --set image.repository=quay.io/external_storage/nfs-client-provisioner-arm nfs-client-provisioner stable/nfs-client-provisioner
-```
 
-### Set nfs as default
+# Set nfs as default storage class
 
-```bash
 # https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
 
 kubectl patch ...
@@ -118,17 +116,23 @@ kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/downloa
 Note: Extract and save the key somewhere.
 
 ## Let's Encrypt
-https for your stuff, automatic
+https for your stuff, automatically
 ```bash
 # https://opensource.com/article/20/3/ssl-letsencrypt-k3s
 ```
 
 ## Flux
 Continuous delivery with gitops
+```bash
+# https://docs.fluxcd.io/en/1.20.2/tutorials/get-started/
+# https://github.com/raspbernetes/multi-arch-images/tree/master/build/flux
+```
 
 # Applications
 
-Tesla Mate
+From this point on, everything should be deployed via gitops (FluxCD)
+
+* Tesla Mate
 
 
 
