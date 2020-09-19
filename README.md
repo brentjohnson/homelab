@@ -4,7 +4,7 @@ Helm charts and other scripting/automation for home lab.
 # Hardware
 
 * pi
-* case
+* [case](https://www.c4labs.com/product/8-slot-stackable-cluster-case-raspberry-pi-3b-and-other-single-board-computers-color-options/?attribute_pa_cloudlet-case-color=black-lime)
 * hub
 * power supplies
 * SSD connector
@@ -91,21 +91,43 @@ sudo apt install nfs-common -y
 # Kubernetes config
  Find config in /etc/rancher/k3s/k3s.yaml
 	It’s readable by root only.
-	To use remotely, edit the host/IP address
+	To use remotely, save in ~/.kube/k3s.yaml and edit the host/IP address
+    export KUBECONFIG=~/.kube/k3s.yaml
 
 
 ## Persistent volumes via NFS
 
-kubectl apply
-kubectl patch
+### Install provisioner
+```bash
+helm install --set nfs.server=192.168.0.200 --set nfs.path=/srv/k3s-storage --set image.repository=quay.io/external_storage/nfs-client-provisioner-arm nfs-client-provisioner stable/nfs-client-provisioner
+```
 
-Sealed Secrets
+### Set nfs as default
 
-Auto TLS certificates
+```bash
+# https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
 
-CD (Flux?)
+kubectl patch ...
+```
 
-# Application config
+## Sealed Secrets
+Allows storing secrets in public git repo
+```bash
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.5/controller.yaml
+```
+Note: Extract and save the key somewhere.
+
+## Let's Encrypt
+https for your stuff, automatic
+```bash
+# https://opensource.com/article/20/3/ssl-letsencrypt-k3s
+```
+
+## Flux
+Continuous delivery with gitops
+
+# Applications
+
 Tesla Mate
 
 
