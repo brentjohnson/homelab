@@ -112,17 +112,19 @@ kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/downloa
 ```
 Note: Extract and save the key somewhere.
 
-## Let's Encrypt
-https for your stuff, automatically
-```bash
-# https://opensource.com/article/20/3/ssl-letsencrypt-k3s
-```
-
 ## Flux
 Continuous delivery with gitops
 ```bash
 # https://docs.fluxcd.io/en/1.20.2/tutorials/get-started/
 # https://github.com/raspbernetes/multi-arch-images/tree/master/build/flux
+
+kubectl create ns flux
+```
+
+## Let's Encrypt
+https for your stuff, automatically
+```bash
+# https://opensource.com/article/20/3/ssl-letsencrypt-k3s
 ```
 
 # Applications
