@@ -56,7 +56,10 @@ sudo reboot
 
 ```bash
 # Install k3s
-curl -sfL https://get.k3s.io | sh -
+#  Disable local storage because we're going to use NFS.
+#  Note: attempts to leave local and set nfs as default were
+#        being reset after reboot
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable local-storage" sh -
 ```
 
 ## Agents
@@ -100,12 +103,6 @@ sudo apt install nfs-common -y
 ```bash
 # Install provisioner
 helm install --set nfs.server=192.168.0.200 --set nfs.path=/srv/k3s-storage --set image.repository=quay.io/external_storage/nfs-client-provisioner-arm nfs-client-provisioner stable/nfs-client-provisioner
-
-# Set nfs as default storage class
-
-# https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
-
-kubectl patch ...
 ```
 
 ## Sealed Secrets
