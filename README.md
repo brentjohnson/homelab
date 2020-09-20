@@ -119,6 +119,19 @@ Continuous delivery with gitops
 # https://github.com/raspbernetes/multi-arch-images/tree/master/build/flux
 
 kubectl create ns flux
+
+# Note the 'sed' in the pipeline to replace the image with arm compatible
+export GHUSER="brentjohnson"
+
+fluxctl install \
+--git-user=${GHUSER} \
+--git-email=${GHUSER}@users.noreply.github.com \
+--git-url=git@github.com:${GHUSER}/homelab \
+--git-path=applications \
+--namespace=flux | sed 's/docker.io\/fluxcd\/flux/docker.io\/raspbernetes\/flux/' | kubectl apply -f -
+
+# In the github repository, go to Settings->Deply keys and give this key write access (so it can create/update tags)
+fluxctl identity --k8s-fwd-ns flux
 ```
 
 ## Let's Encrypt
